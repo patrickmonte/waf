@@ -1,20 +1,33 @@
 # 🛡️ ModSecurity Installer para Oracle Linux
 
-Scripts automatizados para instalação do ModSecurity v3 em sistemas Oracle Linux 7, 8 e 9.
+Scripts automatizados para instalação e desinstalação do ModSecurity em sistemas Oracle Linux 7, 8 e 9.
 
 ## 📁 Scripts Disponíveis
 
 1. **`install_modsecurity_CRS.sh`**
-   Instalação completa com:
+   Instalação completa v3 com:
    - ModSecurity v3
    - Core Rule Set (CRS) v4
    - Suporte a GeoIP
 
 2. **`install_modsecurity_GEOIP.sh`**
-   Instalação simplificada com:
+   Instalação simplificada v3 com:
    - ModSecurity v3 (última versão)
    - Suporte a GeoIP
    - Sem CRS
+
+3. **`install_modsecurity_v2.sh`**
+   Instalação da versão estável v2 com:
+   - ModSecurity v2.9.7
+   - Conector Apache integrado
+   - Suporte a GeoIP
+
+4. **`uninstall_modsecurity.sh`**
+   Remoção completa de:
+   - ModSecurity (v2 e v3)
+   - Core Rule Set (CRS)
+   - GeoIP
+   - Arquivos de configuração
 
 ## 📚 Documentação Detalhada
 
@@ -32,6 +45,9 @@ chmod +x install_modsecurity_*.sh
 
 # 3. Execute com privilégios root
 sudo ./install_modsecurity_CRS.sh
+
+# Para desinstalar
+sudo ./uninstall_modsecurity.sh
 ```
 
 ## ⚙️ Requisitos do Sistema

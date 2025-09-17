@@ -1,6 +1,6 @@
-# Guia de Instalação do ModSecurity v3 para Oracle Linux
+# Guia de Instalação do ModSecurity para Oracle Linux
 
-Este guia detalha o processo de instalação do ModSecurity v3 (com e sem Core Rule Set) em sistemas Oracle Linux 7, 8 e 9.
+Este guia detalha o processo de instalação do ModSecurity (versões v2 e v3) em sistemas Oracle Linux 7, 8 e 9.
 
 ## Pré-requisitos
 - Acesso root ao servidor
@@ -8,7 +8,31 @@ Este guia detalha o processo de instalação do ModSecurity v3 (com e sem Core R
 - 1GB+ de espaço livre em disco
 - 15-30 minutos para instalação
 
-## 📦 Opção 1: Instalação Completa (ModSecurity + CRS + GeoIP)
+## 🛡️ Opção 1: Instalação ModSecurity v2 (Estável)
+
+### Características:
+- Versão 2.9.7 (estável)
+- Conector Apache integrado
+- Suporte a GeoIP
+
+### Passo 1: Baixar o script
+```bash
+wget https://exemplo.com/install_modsecurity_v2.sh
+chmod +x install_modsecurity_v2.sh
+```
+
+### Passo 2: Executar a instalação
+```bash
+sudo ./install_modsecurity_v2.sh
+```
+
+### Fluxo de instalação:
+1. Instala dependências específicas da versão do Oracle Linux
+2. Compila o ModSecurity v2 com conector integrado
+3. Configura o Apache com suporte a GeoIP
+4. Reinicia o Apache
+
+## 📦 Opção 2: Instalação Completa v3 (ModSecurity + CRS + GeoIP)
 
 ### Passo 1: Baixar o script
 ```bash
@@ -29,7 +53,7 @@ sudo ./install_modsecurity_CRS.sh
 5. Configura o ModSecurity com CRS v4.18.0 e GeoIP
 6. Reinicia o Apache
 
-## ⚡ Opção 2: Instalação Simplificada (Apenas ModSecurity + GeoIP)
+## ⚡ Opção 3: Instalação Simplificada v3 (Apenas ModSecurity + GeoIP)
 
 ### Passo 1: Baixar o script
 ```bash
@@ -56,6 +80,9 @@ httpd -M | grep security
 ```
 Saída esperada:
 ```
+# Para v2:
+ security2_module (shared)
+# Para v3:
  security3_module (shared)
 ```
 
@@ -91,19 +118,19 @@ SecGeoLookupDB /usr/share/GeoIP/GeoIP.dat  # Banco de dados GeoIP
 **Solução:**
 1. Verifique logs em `/var/log/httpd/error_log`
 2. Teste configuração com `httpd -t`
-3. Desative temporariamente o ModSecurity comentando `LoadModule security3_module`
+3. Desative temporariamente o ModSecurity comentando `LoadModule`
 
-### Problema: Erro ao carregar módulo (mod_security3.so não encontrado)
+### Problema: Erro ao carregar módulo
 **Solução:**
 ```bash
 # 1. Localize o arquivo do módulo
-find / -name mod_security3.so 2>/dev/null
+find / -name mod_security*.so 2>/dev/null
 
 # 2. Se encontrado em outro diretório, crie um symlink
-sudo ln -s /caminho/correto/mod_security3.so /etc/httpd/modules/
+sudo ln -s /caminho/correto/mod_security*.so /etc/httpd/modules/
 
 # 3. Verifique as permissões
-sudo chmod 755 /etc/httpd/modules/mod_security3.so
+sudo chmod 755 /etc/httpd/modules/mod_security*.so
 
 # 4. Atualize o cache de bibliotecas
 sudo ldconfig
@@ -114,6 +141,23 @@ sudo ldconfig
 1. Ajuste o nível de paranoia no CRS
 2. Adicione exceções específicas
 3. Modifique `SecRuleEngine` para `DetectionOnly` para modo de teste
+
+## 🗑️ Desinstalação Completa
+
+Para remover completamente o ModSecurity, CRS e GeoIP:
+
+```bash
+wget https://exemplo.com/uninstall_modsecurity.sh
+chmod +x uninstall_modsecurity.sh
+sudo ./uninstall_modsecurity.sh
+```
+
+O script:
+1. Remove arquivos de configuração
+2. Remove módulos do Apache
+3. Desinstala pacotes relacionados
+4. Remove diretórios de origem
+5. Oferece opção para reinstalar Apache limpo
 
 ## 📚 Recursos Adicionais
 - [Documentação Oficial ModSecurity](https://github.com/SpiderLabs/ModSecurity)
