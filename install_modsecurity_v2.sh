@@ -68,8 +68,8 @@ compile_modsecurity_v2() {
     rm -rf ModSecurity
   fi
   
-  # Usando a versão 2.9.7 (última estável da v2)
-  git clone -b v2.9.7 https://github.com/SpiderLabs/ModSecurity
+  # Usando a versão 2.9.12 (última estável da v2)
+  git clone -b v2.9.12 https://github.com/SpiderLabs/ModSecurity
   cd ModSecurity
   ./autogen.sh
   ./configure --enable-standalone-module --enable-geoip
