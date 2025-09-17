@@ -72,6 +72,42 @@ sudo ./install_modsecurity_GEOIP.sh
 3. Configura ModSecurity com suporte a GeoIP
 4. Reinicia o Apache
 
+## 🛡️ Opção 4: Instalação Simplificada v2 (ModSecurity v2 + GeoIP)
+
+### Passo 1: Baixar o script
+```bash
+wget https://exemplo.com/install_modsecurity_v2_GEOIP.sh
+chmod +x install_modsecurity_v2_GEOIP.sh
+```
+
+### Passo 2: Executar a instalação
+```bash
+sudo ./install_modsecurity_v2_GEOIP.sh
+```
+
+### Fluxo de instalação:
+1. Instala dependências específicas
+2. Compila ModSecurity v2 com suporte integrado
+3. Configura Apache com módulo e GeoIP
+4. Reinicia o Apache
+
+### Passo 1: Baixar o script
+```bash
+wget https://exemplo.com/install_modsecurity_GEOIP.sh
+chmod +x install_modsecurity_GEOIP.sh
+```
+
+### Passo 2: Executar a instalação
+```bash
+sudo ./install_modsecurity_GEOIP.sh
+```
+
+### Fluxo de instalação:
+1. Instala dependências essenciais
+2. Compila componentes principais
+3. Configura ModSecurity com suporte a GeoIP
+4. Reinicia o Apache
+
 ## ✔️ Verificação Pós-Instalação
 
 ### Verificar módulo no Apache

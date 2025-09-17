@@ -22,7 +22,14 @@ Scripts automatizados para instalação e desinstalação do ModSecurity em sist
    - Conector Apache integrado
    - Suporte a GeoIP
 
-4. **`uninstall_modsecurity.sh`**
+4. **`install_modsecurity_v2_GEOIP.sh`**
+   Instalação simplificada v2 com:
+   - ModSecurity v2.9.7
+   - Conector Apache integrado
+   - Suporte a GeoIP
+   - Sem CRS
+
+5. **`uninstall_modsecurity.sh`**
    Remoção completa de:
    - ModSecurity (v2 e v3)
    - Core Rule Set (CRS)
