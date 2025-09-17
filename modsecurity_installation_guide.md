@@ -12,13 +12,13 @@ Este guia detalha o processo de instalação do ModSecurity v3 (com e sem Core R
 
 ### Passo 1: Baixar o script
 ```bash
-wget https://exemplo.com/install_modsecurity_v4.sh
-chmod +x install_modsecurity_v4.sh
+wget https://exemplo.com/install_modsecurity_CRS.sh
+chmod +x install_modsecurity_CRS.sh
 ```
 
 ### Passo 2: Executar a instalação
 ```bash
-sudo ./install_modsecurity_v4.sh
+sudo ./install_modsecurity_CRS.sh
 ```
 
 ### Fluxo de instalação:
@@ -33,13 +33,13 @@ sudo ./install_modsecurity_v4.sh
 
 ### Passo 1: Baixar o script
 ```bash
-wget https://exemplo.com/install_modsecurity_latest.sh
-chmod +x install_modsecurity_latest.sh
+wget https://exemplo.com/install_modsecurity_GEOIP.sh
+chmod +x install_modsecurity_GEOIP.sh
 ```
 
 ### Passo 2: Executar a instalação
 ```bash
-sudo ./install_modsecurity_latest.sh
+sudo ./install_modsecurity_GEOIP.sh
 ```
 
 ### Fluxo de instalação:
@@ -83,7 +83,7 @@ SecGeoLookupDB /usr/share/GeoIP/GeoIP.dat  # Banco de dados GeoIP
 ## 🔧 Solução de Problemas Comuns
 
 ### Problema: "command not found" durante instalação
-**Solução:** 
+**Solução:**
 1. Verifique se todas as dependências foram instaladas
 2. Execute novamente o script com `sudo ./script.sh`
 
@@ -92,6 +92,22 @@ SecGeoLookupDB /usr/share/GeoIP/GeoIP.dat  # Banco de dados GeoIP
 1. Verifique logs em `/var/log/httpd/error_log`
 2. Teste configuração com `httpd -t`
 3. Desative temporariamente o ModSecurity comentando `LoadModule security3_module`
+
+### Problema: Erro ao carregar módulo (mod_security3.so não encontrado)
+**Solução:**
+```bash
+# 1. Localize o arquivo do módulo
+find / -name mod_security3.so 2>/dev/null
+
+# 2. Se encontrado em outro diretório, crie um symlink
+sudo ln -s /caminho/correto/mod_security3.so /etc/httpd/modules/
+
+# 3. Verifique as permissões
+sudo chmod 755 /etc/httpd/modules/mod_security3.so
+
+# 4. Atualize o cache de bibliotecas
+sudo ldconfig
+```
 
 ### Problema: Bloqueios indevidos
 **Solução:**

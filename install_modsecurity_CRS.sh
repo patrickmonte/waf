@@ -114,7 +114,7 @@ configure_apache_modsec() {
   echo "Configurando o Apache e o ModSecurity..."
   
   cat > /etc/httpd/conf.modules.d/10-mod_security.conf << EOF
-LoadModule security3_module modules/mod_security3.so
+LoadModule security3_module /usr/local/modsecurity/lib/mod_security3.so
 EOF
   
   mkdir -p /etc/httpd/modsecurity.d
@@ -125,14 +125,16 @@ EOF
   sed -i 's/SecRuleEngine DetectionOnly/SecRuleEngine On/' /etc/httpd/modsecurity.d/modsecurity.conf
 
   cd /etc/httpd/modsecurity.d/
+  # Remove diretório existente se presente
+  rm -rf owasp-crs
   # Usando a versão mais recente do CRS v4
   wget https://github.com/coreruleset/coreruleset/archive/refs/tags/v4.18.0.tar.gz
   tar -xzvf v4.18.0.tar.gz
-  mv coreruleset-4.18.0 owasp-crs
+  mv -f coreruleset-4.18.0 owasp-crs
   rm v4.18.0.tar.gz
   # Tenta renomear o arquivo de exemplo (pode ter nomes diferentes em versões diferentes)
-  mv owasp-crs/crs-setup.conf.example owasp-crs/crs-setup.conf || \
-  mv owasp-crs/crs-setup.conf-example owasp-crs/crs-setup.conf
+  mv -f owasp-crs/crs-setup.conf.example owasp-crs/crs-setup.conf || \
+  mv -f owasp-crs/crs-setup.conf-example owasp-crs/crs-setup.conf
 
   cat > /etc/httpd/conf.d/mod_security.conf << EOF
 <IfModule security3_module>
